@@ -8,12 +8,13 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif !important;
-    color: #373737;
+    /* color: #373737; */
     font-size: 15px;
 }
 input, select, textarea {
     height: 45px !important;
     border: 1px solid #b9b9b9 !important;
+    width: 100%;
 }
 input:focus, select:focus, textarea:focus{
     outline: none !important;
@@ -33,4 +34,7 @@ table{
 }
 i{
     font-size: 20px;
+}
+.max-width{
+    max-width: max-content !important;
 }

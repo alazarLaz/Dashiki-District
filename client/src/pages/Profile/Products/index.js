@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setLoader } from '../../../redux/loaderSlice'
 import moment from 'moment'
 import { DeleteProduct, GetProducts } from '../../../apicalls/products'
+import Bids from './Bids'
 
 function Products() {
+    const [showBids, setShowBids ] = React.useState(false)
     const [ selectedProduct, setSelectedProduct ] = React.useState(null)
     const [ showProductForm, setShowProductForm ] = React.useState(false)
     const [products , setProducts] = React.useState([]);
@@ -79,7 +81,7 @@ function Products() {
             dataIndex: "action",
             render: (text, record) => {
                 return(
-                    <div className='flex gap-5'>
+                    <div className='flex gap-5 items-center'>
                         <i className='ri-delete-bin-line'
                         onClick={()=>{
                             deleteProduct(record._id)
@@ -90,6 +92,14 @@ function Products() {
                             setShowProductForm(true)
                         }}
                         ></i>
+                        <span 
+                        className='underline cursor-pointer'
+                        onClick={()=>{
+                            setSelectedProduct(record);
+                            setShowBids(true);
+                        }}
+                        >Show Bids
+                        </span>
                     </div>
                 )
             }
@@ -115,13 +125,21 @@ function Products() {
         </div>
         <Table columns={ columns } dataSource={ products } />
         { showProductForm && 
-        <ProductsForm 
+        (<ProductsForm 
         showProductForm = { showProductForm } 
         setShowProductForm = { setShowProductForm } 
         selectedProduct={selectedProduct}
         getData = {getData}
-        /> 
-        }
+        />)}
+        
+        {showBids &&(
+            <Bids 
+            showBidsModal={showBids}
+            setShowBidsModal={setShowBids}
+            selectedProduct={selectedProduct}
+            />
+        )}
+        
     </div>
   )
 }

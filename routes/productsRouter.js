@@ -27,10 +27,23 @@ router.post('/add-product', authMiddleware,async (req, res)=>{
 //get all products
 router.post("/get-products", async(req, res)=>{
     try {
-        const { seller, categories = [], age = [] } = req.body
+        const { seller, category = [], price = [], status } = req.body
         let filters = {}
         if(seller){
             filters.seller = seller
+        }
+        if(status){
+            filters.status = status
+        }
+        if(category.length > 0){
+            filters.category = { $in: category }
+        }
+        if (price.length > 0) {
+            price.forEach((item) => {
+                const fromPrice = item.split("-")[0]
+                const toPrice = item.split("-")[1]
+                filters.price = { $gte: fromPrice, $lte: toPrice }
+            });   
         }
         const products = await Product.find(filters).populate('seller').sort({createdAt: -1})
         res.send({

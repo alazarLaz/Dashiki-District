@@ -102,6 +102,34 @@ export const GetProductById = async (id) => {
 }
 
 
+//place a new bid
+
+export const PlaceNewBid = async (payload) => {
+    try {
+        const response = await axiosInstance.post("/api/bids/place-new-bid", payload)
+        return response.data
+    } catch (error) {
+        return error.message
+    }
+}
+
+//get all bid
+
+export const getAllBids = async (filters) => {
+    try {
+        const response = await axiosInstance.post("/api/bids/get-all-bids", filters);
+        return response.data
+    } catch (error) {
+        return error.message
+    }
+}
+
+
+
+
+
+
+
 
 
 

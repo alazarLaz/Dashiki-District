@@ -9,8 +9,10 @@ const port = process.env.PORT || 5000;
 
 const userRoute = require('./routes/usersRoute')
 const productsRoute = require('./routes/productsRouter')
+const bidsRoute = require("./routes/bidsRoute")
 
 app.use('/api/users', userRoute)
 app.use('/api/products', productsRoute)
+app.use('/api/bids', bidsRoute)
 
 app.listen(port, () => console.log(`NodeJS SERVER started on port ${port}`));
